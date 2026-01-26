@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesla Daily Brief Archive</title>
+    <meta http-equiv="refresh" content="0; url=2026-01-25.html">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tesla-red: #e82127;
+            --dark-bg: #0a0a0a;
+            --card-bg: #141414;
+            --card-border: #222;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666;
+            --gradient-red: linear-gradient(135deg, #e82127 0%, #ff4d4d 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .logo-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tesla-logo {
+            font-size: 48px;
+            font-weight: 800;
+            background: var(--gradient-red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+        }
+
+        .badge {
+            background: var(--gradient-red);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .archive-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .archive-list li {
+            margin-bottom: 15px;
+        }
+
+        .archive-list a {
+            display: block;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px 30px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .archive-list a:hover {
+            border-color: var(--tesla-red);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(232, 33, 39, 0.2);
+        }
+
+        .archive-list .date {
+            font-size: 18px;
+        }
+
+        .archive-list .label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .redirect-note {
+            margin-top: 30px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-wrapper">
+            <span class="tesla-logo">TESLA</span>
+            <span class="badge">Daily Brief</span>
+        </div>
+
+        <h1>Daily Brief Archive</h1>
+
+        <ul class="archive-list">
+            <li>
+                <a href="2026-01-25.html">
+                    <div class="date">January 25, 2026</div>
+                    <div class="label">Latest Report</div>
+                </a>
+            </li>
+        </ul>
+
+        <p class="redirect-note">Redirecting to latest report...</p>
+    </div>
+</body>
+</html>
