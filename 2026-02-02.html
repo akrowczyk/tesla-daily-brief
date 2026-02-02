@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesla Daily Brief | February 2, 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tesla-red: #e82127;
+            --dark-bg: #0a0a0a;
+            --card-bg: #141414;
+            --card-border: #222;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666;
+            --green: #00d26a;
+            --amber: #ffb800;
+            --red: #ff4d4d;
+            --gradient-red: linear-gradient(135deg, #e82127 0%, #ff4d4d 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .tesla-logo {
+            font-size: 48px;
+            font-weight: 800;
+            background: var(--gradient-red);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+        }
+
+        .badge {
+            background: var(--gradient-red);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .date-display {
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .date-display strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .stock-ticker {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px 40px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stock-main {
+            display: flex;
+            align-items: baseline;
+            gap: 20px;
+        }
+
+        .ticker-symbol {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .stock-price {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -2px;
+        }
+
+        .stock-change {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .stock-change.positive { color: var(--green); }
+        .stock-change.negative { color: var(--red); }
+
+        .stock-stats {
+            display: flex;
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: right;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .stock-ticker { flex-direction: column; text-align: center; }
+            .stock-stats { justify-content: center; }
+            .stat-item { text-align: center; }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .card-icon.red { background: rgba(232, 33, 39, 0.15); }
+        .card-icon.green { background: rgba(0, 210, 106, 0.15); }
+        .card-icon.amber { background: rgba(255, 184, 0, 0.15); }
+        .card-icon.blue { background: rgba(0, 122, 255, 0.15); }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .card-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .news-item {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .news-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .news-item:first-child { padding-top: 0; }
+
+        .news-headline {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            line-height: 1.4;
+        }
+
+        .news-summary {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .news-tag {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .tag-breaking { background: var(--tesla-red); color: white; }
+        .tag-robotaxi { background: rgba(0, 122, 255, 0.2); color: #4da6ff; }
+        .tag-fsd { background: rgba(0, 210, 106, 0.2); color: var(--green); }
+        .tag-earnings { background: rgba(255, 184, 0, 0.2); color: var(--amber); }
+        .tag-energy { background: rgba(138, 43, 226, 0.2); color: #b366ff; }
+        .tag-production { background: rgba(255, 165, 0, 0.2); color: #ffa500; }
+        .tag-regulatory { background: rgba(220, 53, 69, 0.2); color: #ff6b7a; }
+
+        .catalyst-item {
+            display: flex;
+            gap: 15px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .catalyst-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .catalyst-item:first-child { padding-top: 0; }
+
+        .catalyst-number {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .catalyst-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .catalyst-content p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .event-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .event-item:last-child { border-bottom: none; }
+
+        .event-date {
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .event-day {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--tesla-red);
+        }
+
+        .event-month {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .event-details h4 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .event-details p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .risk-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+        }
+
+        .risk-icon {
+            color: var(--amber);
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .risk-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .analyst-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .analyst-grid { grid-template-columns: 1fr; }
+        }
+
+        .analyst-box {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .analyst-rating {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .analyst-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(232, 33, 39, 0.1) 0%, rgba(232, 33, 39, 0.05) 100%);
+            border: 1px solid rgba(232, 33, 39, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .highlight-box h4 {
+            color: var(--tesla-red);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .highlight-box p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        footer {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--card-border);
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--tesla-red);
+        }
+
+        .sources {
+            margin-top: 20px;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-wrapper">
+                <span class="tesla-logo">TESLA</span>
+                <span class="badge">Daily Brief</span>
+            </div>
+            <p class="date-display"><strong>February 2, 2026</strong> • Monday Market Preview</p>
+        </header>
+
+        <!-- Stock Ticker -->
+        <section class="stock-ticker">
+            <div>
+                <p class="ticker-symbol">NASDAQ: TSLA</p>
+                <div class="stock-main">
+                    <span class="stock-price">$420.68</span>
+                    <span class="stock-change negative">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 20l8-8h-5V4h-6v8H4z"/>
+                        </svg>
+                        -2.26%
+                    </span>
+                </div>
+            </div>
+            <div class="stock-stats">
+                <div class="stat-item">
+                    <p class="stat-label">Prev Close</p>
+                    <p class="stat-value">$430.41</p>
+                </div>
+                <div class="stat-item">
+                    <p class="stat-label">52W High</p>
+                    <p class="stat-value">$498.83</p>
+                </div>
+                <div class="stat-item">
+                    <p class="stat-label">Consensus</p>
+                    <p class="stat-value" style="color: var(--amber);">HOLD</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Breaking News -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon red">🔥</div>
+                    <div>
+                        <h2 class="card-title">Breaking News</h2>
+                        <p class="card-subtitle">Latest Developments</p>
+                    </div>
+                </div>
+
+                <!-- NEWS ITEM 1 -->
+                <div class="news-item">
+                    <span class="news-tag tag-breaking">Breaking</span>
+                    <h3 class="news-headline">SpaceX Considers Merger with Tesla or xAI</h3>
+                    <p class="news-summary">Bloomberg reports SpaceX is weighing a potential merger with Tesla as Elon Musk explores ways to consolidate his business empire. Shares rose 3% in after-hours trading on the news.</p>
+                </div>
+
+                <!-- NEWS ITEM 2 -->
+                <div class="news-item">
+                    <span class="news-tag tag-production">Production</span>
+                    <h3 class="news-headline">Tesla Ends Model S and Model X Production</h3>
+                    <p class="news-summary">On the Q4 earnings call, Musk announced Tesla is discontinuing Model S and X, converting Fremont factory lines to produce Optimus robots at a planned rate of 1 million units per year.</p>
+                </div>
+
+                <!-- NEWS ITEM 3 -->
+                <div class="news-item">
+                    <span class="news-tag tag-earnings">Earnings</span>
+                    <h3 class="news-headline">$20 Billion CapEx Plan Signals Massive AI Pivot</h3>
+                    <p class="news-summary">Tesla plans to more than double capital spending to over $20B in 2026, shifting aggressively into AI, robotaxis, and robotics. Canaccord Genuity: "The Tesla of yesterday is gone."</p>
+                </div>
+
+                <!-- NEWS ITEM 4 -->
+                <div class="news-item">
+                    <span class="news-tag tag-breaking">Breaking</span>
+                    <h3 class="news-headline">Tesla Invests $2 Billion in Musk's xAI Startup</h3>
+                    <p class="news-summary">Tesla disclosed a $2B investment in xAI as part of its $20B financing round. The deal is drawing scrutiny over Musk's conflicts of interest across his companies.</p>
+                </div>
+            </div>
+
+            <!-- Key Catalysts -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon green">⚡</div>
+                    <div>
+                        <h2 class="card-title">2026 Catalysts</h2>
+                        <p class="card-subtitle">Key Growth Drivers</p>
+                    </div>
+                </div>
+
+                <div class="catalyst-item">
+                    <span class="catalyst-number">1</span>
+                    <div class="catalyst-content">
+                        <h4>Cybercab Mass Production & Robotaxi Expansion</h4>
+                        <p>Cybercab production starts April at Giga Texas. Robotaxi service expanding from Austin to 7 new U.S. cities in H1 2026 including Dallas, Phoenix, Miami, and Las Vegas.</p>
+                    </div>
+                </div>
+
+                <div class="catalyst-item">
+                    <span class="catalyst-number">2</span>
+                    <div class="catalyst-content">
+                        <h4>Optimus V3 Unveil & Robot Production Ramp</h4>
+                        <p>Optimus V3 humanoid robot expected in Q1, with Fremont retooled for 1M units/year capacity. Musk sees Optimus as eventually 80% of Tesla's revenue.</p>
+                    </div>
+                </div>
+
+                <div class="catalyst-item">
+                    <span class="catalyst-number">3</span>
+                    <div class="catalyst-content">
+                        <h4>Next-Gen AI Chip (40x Performance Leap)</h4>
+                        <p>New Tesla AI chip with 40x speed improvement, 8x compute, and 9x memory over prior generation. Manufactured with Samsung and TSMC, expected to hit production line in 2026.</p>
+                    </div>
+                </div>
+
+                <div class="catalyst-item">
+                    <span class="catalyst-number">4</span>
+                    <div class="catalyst-content">
+                        <h4>Roadster Reveal & Tesla Semi Ramp</h4>
+                        <p>Production-spec Roadster to be revealed April 1. Tesla Semi and Cybercab production both commencing in H1 2026, alongside continued Energy segment growth.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Events -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon blue">📅</div>
+                    <div>
+                        <h2 class="card-title">Upcoming Events</h2>
+                        <p class="card-subtitle">Key Dates to Watch</p>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="event-day">1</span>
+                        <span class="event-month">APR</span>
+                    </div>
+                    <div class="event-details">
+                        <h4>Roadster Production Reveal</h4>
+                        <p>Production-spec next-gen Roadster to be unveiled. Musk promises "wild tech that edges into sci-fi territory."</p>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="event-day">TBD</span>
+                        <span class="event-month">APR</span>
+                    </div>
+                    <div class="event-details">
+                        <h4>Cybercab Production Start</h4>
+                        <p>Mass production of the dedicated robotaxi begins at Giga Texas. First Tesla without a steering wheel or pedals.</p>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="event-day">28</span>
+                        <span class="event-month">APR</span>
+                    </div>
+                    <div class="event-details">
+                        <h4>Q1 2026 Earnings Report</h4>
+                        <p>Next quarterly earnings expected after market close. Analysts project EPS of $0.36-$0.40. First report reflecting new $20B capex plan.</p>
+                    </div>
+                </div>
+
+                <div class="event-item">
+                    <div class="event-date">
+                        <span class="event-day">Q2</span>
+                        <span class="event-month">2026</span>
+                    </div>
+                    <div class="event-details">
+                        <h4>Model 2 Affordable EV Unveil</h4>
+                        <p>$25,000 consumer vehicle expected to be unveiled in Q2, with rumored pricing as low as $19,990 to reignite volume growth.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Risks & Headwinds -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon amber">⚠️</div>
+                    <div>
+                        <h2 class="card-title">Risks & Headwinds</h2>
+                        <p class="card-subtitle">Watch These Factors</p>
+                    </div>
+                </div>
+
+                <div class="risk-item">
+                    <span class="risk-icon">●</span>
+                    <p class="risk-text"><strong>Declining Auto Sales:</strong> Deliveries fell 8.6% to 1.64M in 2025, with automotive revenue down 10%. Q4 U.S. sales dropped 15.6% after EV tax credit expiration in September.</p>
+                </div>
+
+                <div class="risk-item">
+                    <span class="risk-icon">●</span>
+                    <p class="risk-text"><strong>Intensifying Competition:</strong> BYD, Xiaomi, and NIO are reshaping the global EV landscape with aggressive pricing. BYD's entry-level EV priced below $10,000. Waymo delivered 14M autonomous rides in 2025 vs. Tesla's zero fully autonomous rides.</p>
+                </div>
+
+                <div class="risk-item">
+                    <span class="risk-icon">●</span>
+                    <p class="risk-text"><strong>Extreme Valuation:</strong> Forward P/E of ~196x, with 2026 net income forecasts down 56% to $6.1B. Stock trades on AI/robotaxi promise rather than current earnings fundamentals.</p>
+                </div>
+
+                <div class="risk-item">
+                    <span class="risk-icon">●</span>
+                    <p class="risk-text"><strong>Regulatory & Execution Risk:</strong> Cybercab requires NHTSA approval to operate without steering wheel. FSD unsupervised needs state-by-state approval. Camera-only approach remains a technical vulnerability.</p>
+                </div>
+
+                <div class="risk-item">
+                    <span class="risk-icon">●</span>
+                    <p class="risk-text"><strong>Brand & Leadership Concerns:</strong> Musk's political activities are hurting European sales. Attention split across Tesla, xAI, SpaceX, and DOGE. European backlash linked to far-right political endorsements.</p>
+                </div>
+            </div>
+
+            <!-- Analyst Sentiment - Full Width -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <div class="card-icon green">📊</div>
+                    <div>
+                        <h2 class="card-title">Analyst Sentiment</h2>
+                        <p class="card-subtitle">Wall Street Outlook</p>
+                    </div>
+                </div>
+
+                <div class="analyst-grid">
+                    <div class="analyst-box">
+                        <p class="analyst-rating" style="color: var(--green);">$500</p>
+                        <p class="analyst-label">Piper Sandler (Bull)</p>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">Alexander Potter: Overweight</p>
+                    </div>
+                    <div class="analyst-box">
+                        <p class="analyst-rating" style="color: var(--amber);">$411</p>
+                        <p class="analyst-label">Consensus Target</p>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">26 Analysts: Hold</p>
+                    </div>
+                    <div class="analyst-box">
+                        <p class="analyst-rating" style="color: var(--green);">$600</p>
+                        <p class="analyst-label">High Target</p>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">Dan Ives (Wedbush): Outperform</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>🎯 Key Analyst Take</h4>
+                    <p>Canaccord Genuity: "Forget the Tesla you knew. The Tesla of yesterday is gone." Musk has reached a "burn the ships" inflection point, with the $20B+ capex plan signaling a full pivot from automaker to AI and robotics company. Baird's Ben Kallo urges investors to "load up ahead of 2026's catalysts," citing robotaxi expansion and Optimus milestones as key upside triggers.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Data compiled from public sources on February 2, 2026. Not financial advice.</p>
+            <div class="sources">
+                <strong>Sources:</strong><br>
+                <a href="https://finance.yahoo.com/quote/TSLA/">Yahoo Finance</a> •
+                <a href="https://www.cnbc.com/2026/01/29/musks-20-billion-spending-plan-signals-tesla-of-yesterday-is-gone.html">CNBC</a> •
+                <a href="https://www.cnbc.com/2026/01/28/tesla-ending-model-s-x-production.html">CNBC - Model S/X</a> •
+                <a href="https://www.cnbc.com/2026/01/28/tesla-to-invest-2-billion-in-xai-elon-musks-openai-competitor.html">CNBC - xAI Investment</a> •
+                <a href="https://www.bloomberg.com/news/articles/2026-01-29/elon-musk-s-spacex-is-said-to-consider-merger-with-tesla-or-xai">Bloomberg</a> •
+                <a href="https://www.marketbeat.com/stocks/NASDAQ/TSLA/forecast/">MarketBeat</a> •
+                <a href="https://www.tipranks.com/stocks/tsla/forecast">TipRanks</a> •
+                <a href="https://seekingalpha.com/article/4857515-tesla-2026-could-be-a-reckoning-year-for-robotaxi-and-optimus">Seeking Alpha</a> •
+                <a href="https://www.nasdaq.com/articles/tesla-supercycle-5-catalysts-will-ignite-stock-2026">Nasdaq</a> •
+                <a href="https://www.caranddriver.com/news/a69288438/tesla-roadster-reveal-cybercab-production-april-2026/">Car and Driver</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
